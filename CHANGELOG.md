@@ -2,5 +2,5 @@
 
 All Notable changes to `jusibe-php-lib` will be documented in this file
 
-## 2016-02-03
+## 2016-04-10
 - Initial release
