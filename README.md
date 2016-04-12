@@ -12,16 +12,40 @@
 
 [PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.3+, and [Composer](https://getcomposer.org) are required.
 
-To get the latest version of jusibe-php, simply add the following line to the require block of your `composer.json` file.
+To get the latest version of jusibe-php-lib, simply add the following line to the require block of your `composer.json` file.
 
 ```
-"unicodeveloper/jusibe-php": "dev-master"
+"unicodeveloper/jusibe-php-lib": "dev-master"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
 
 ## Usage
+
+Available methods for use are:
+```php
+
+/**
+ * Send SMS using the Jusibe API
+ * @param  array $payload
+ * @return object
+ */
+$jusibe->sendSMS($payload)->getResponse();
+
+/**
+ * Check the available SMS credits left in your Jusibe account
+ * @return object
+ */
+$jusibe->checkAvailableCredits()->getResponse();
+
+/**
+ * Check the delivery status of a sent SMS
+ * @param  string $messageID
+ * @return object
+ */
+$jusibe->checkDeliveryStatus('8nb1wrgdjw')->getResponse();
+```
 
 ### Send an SMS
 
@@ -56,7 +80,8 @@ try {
 
 ```
 
-Response Info for Developer
+**Response Info for Developer**
+
 ![SendSMS Response](https://cloud.githubusercontent.com/assets/2946769/14465033/451179c4-00c9-11e6-881e-bcc92665fa7c.png)
 
 ### Check SMS Credits
@@ -84,7 +109,8 @@ try {
 
 ```
 
-Response Info for Developer
+**Response Info for Developer**
+
 ![Check SMS Credits Response](https://cloud.githubusercontent.com/assets/2946769/14465412/d15361f8-00ca-11e6-8145-7cb8cd2b46d0.png)
 
 ### Check Delivery Status
@@ -112,7 +138,8 @@ try {
 
 ```
 
-Response Info for Developer
+**Response Info for Developer**
+
 ![Check Delivery Status Response](https://cloud.githubusercontent.com/assets/2946769/14465686/bb61e3d2-00cb-11e6-9164-ec73665408f3.png)
 
 ## Contributing
