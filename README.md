@@ -15,13 +15,47 @@
 To get the latest version of jusibe-php, simply add the following line to the require block of your `composer.json` file.
 
 ```
-"unicodeveloper/jusibe-php": "1.0.*"
+"unicodeveloper/jusibe-php": "dev-master"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
 
-## CURRENTLY IN DEVELOPMENT. PLEASE DO NOT USE YET!
+## Usage
+
+### Send an SMS
+
+```php
+
+<?php
+
+// include your composer dependencies
+require_once 'vendor/autoload.php';
+
+use Unicodeveloper\Jusibe\Jusibe;
+
+$publicKey = 'xxxxxxxxxxxxxx';
+$accessToken = 'xxxxxxxxxxxxxx';
+
+$jusibe = new Jusibe($publicKey, $accessToken);
+
+$message = "I LOVE YOU, BABY";
+
+$payload = [
+    'to' => '7079740987',
+    'from' => 'PROSPER DATING NETWORK',
+    'message' => $message
+];
+
+try {
+    $response = $jusibe->sendSMS($payload)->getResponse();
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+[](https://cloud.githubusercontent.com/assets/2946769/14465033/451179c4-00c9-11e6-881e-bcc92665fa7c.png)
+
+```
 
 
 ## Contributing
