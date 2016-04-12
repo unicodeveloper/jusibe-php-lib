@@ -49,13 +49,15 @@ $payload = [
 
 try {
     $response = $jusibe->sendSMS($payload)->getResponse();
+    print_r($response);
 } catch(Exception $e) {
     echo $e->getMessage();
 }
 
+```
+
 [](https://cloud.githubusercontent.com/assets/2946769/14465033/451179c4-00c9-11e6-881e-bcc92665fa7c.png)
 
-```
 
 
 ## Contributing
