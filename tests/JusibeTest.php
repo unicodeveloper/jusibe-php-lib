@@ -23,4 +23,9 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     {
         $this->jusibe = new Jusibe();
     }
+
+    public function testSendSMS()
+    {
+        $this->assertTrue(true);
+    }
 }
