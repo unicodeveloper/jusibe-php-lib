@@ -56,9 +56,64 @@ try {
 
 ```
 
+Response Info for Developer
 ![SendSMS Response](https://cloud.githubusercontent.com/assets/2946769/14465033/451179c4-00c9-11e6-881e-bcc92665fa7c.png)
 
+### Check SMS Credits
 
+```php
+
+<?php
+
+// include your composer dependencies
+require_once 'vendor/autoload.php';
+
+use Unicodeveloper\Jusibe\Jusibe;
+
+$publicKey = 'xxxxxxxxxxxxxx';
+$accessToken = 'xxxxxxxxxxxxxx';
+
+$jusibe = new Jusibe($publicKey, $accessToken);
+
+try {
+   $response = $jusibe->checkAvailableCredits()->getResponse();
+   print_r($response);
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+```
+
+Response Info for Developer
+![Check SMS Credits Response](https://cloud.githubusercontent.com/assets/2946769/14465412/d15361f8-00ca-11e6-8145-7cb8cd2b46d0.png)
+
+### Check Delivery Status
+
+```php
+
+<?php
+
+// include your composer dependencies
+require_once 'vendor/autoload.php';
+
+use Unicodeveloper\Jusibe\Jusibe;
+
+$publicKey = 'xxxxxxxxxxxxxx';
+$accessToken = 'xxxxxxxxxxxxxx';
+
+$jusibe = new Jusibe($publicKey, $accessToken);
+
+try {
+    $response = $jusibe->checkDeliveryStatus('8nb1wrgdjw')->getResponse();
+    print_r($response);
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+```
+
+Response Info for Developer
+![Check Delivery Status Response](https://cloud.githubusercontent.com/assets/2946769/14465686/bb61e3d2-00cb-11e6-9164-ec73665408f3.png)
 
 ## Contributing
 
