@@ -132,6 +132,6 @@ class Jusibe {
      */
     public function andReturnResult()
     {
-        print_r(json_decode($this->response->getBody()));
+        print_r(json_decode($this->response->getBody())); // still testing this
     }
 }
