@@ -11,8 +11,8 @@
 
 namespace Unicodeveloper\Jusibe;
 
-use Exception;
 use GuzzleHttp\Client;
+use Unicodeveloper\Jusibe\Exceptions\IsEmpty;
 
 class Jusibe {
 
@@ -100,7 +100,7 @@ class Jusibe {
     public function sendSMS($payload = [])
     {
         if (empty($payload)) {
-            throw new Exception('Message Payload can not be empty. Please fill the appropriate details');
+            throw IsEmpty::create("Message Payload can not be empty. Please fill the appropriate details");
         }
 
         $this->performPostRequest('/smsapi/send_sms', $payload);
@@ -127,7 +127,7 @@ class Jusibe {
     public function checkDeliveryStatus($messageID = null)
     {
         if (is_null($messageID)) {
-            throw new Exception('Message ID can not be empty.');
+            throw IsEmpty::create("Message ID can not be empty.");
         }
 
         $this->performGetRequest("/smsapi/delivery_status?message_id={$messageID}");
