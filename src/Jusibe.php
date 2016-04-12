@@ -139,8 +139,8 @@ class Jusibe {
      * Return the response object of any operation
      * @return object
      */
-    public function andReturnResult()
+    public function getResponse()
     {
-        print_r(json_decode($this->response->getBody())); // still testing this
+        return json_decode($this->response->getBody());
     }
 }
