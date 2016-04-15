@@ -11,6 +11,7 @@
 
 namespace Unicodeveloper\Jusibe\Test;
 
+use Mockery as m;
 use ReflectionClass;
 use PHPUnit_Framework_TestCase;
 use Unicodeveloper\Jusibe\Jusibe;
@@ -27,5 +28,10 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     public function testSendSMS()
     {
         $this->assertTrue(true);
+    }
+
+    public function testBaseUrlIsLegit()
+    {
+        $this->assertEquals(Jusibe::baseURL, 'https://jusibe.com');
     }
 }
