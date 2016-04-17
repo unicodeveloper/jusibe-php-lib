@@ -15,6 +15,9 @@ use StdClass;
 use PHPUnit_Framework_TestCase;
 use Unicodeveloper\Jusibe\Helper;
 use Unicodeveloper\Jusibe\Jusibe;
+use Unicodeveloper\Jusibe\Exceptions\IsNull;
+use Unicodeveloper\Jusibe\Exceptions\IsEmpty;
+
 
 class JusibeTest extends PHPUnit_Framework_TestCase
 {
@@ -66,18 +69,14 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @throws  IsEmpty Exception
-     * @setExpectedException \Unicodeveloper\Jusibe\Exceptions\IsEmpty
+     * @throws IsEmpty
+     * test that SendSMSWithoutPayload throws an exception
      */
     public function testSendSMSWithoutPayload()
     {
         // return a reference to the stubbed Jusibe object
         $this->jusibe->method('sendSMS')
-            ->will($this->returnSelf());
-
-        // now stub out the getResponse method
-        $this->jusibe->method('getResponse')
-            ->willReturn($this->sendSMSResponse());
+            ->will($this->throwException(new IsEmpty));
     }
 
     /**
@@ -126,14 +125,14 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-    * @setExpectedException \Unicodeveloper\Jusibe\Exceptions\IsEmpty
-    */
+     * @throws IsNull
+     * test that CheckDeliveryStatusWithoutMessageID throws an exception
+     */
     public function testCheckDeliveryStatusWithoutMessageID()
     {
         // return a reference to the stubbed Jusibe object
         $this->jusibe->method('checkDeliveryStatus')
-            ->with(null)
-            ->will($this->returnSelf());
+            ->will($this->throwException(new IsNull));
     }
 
     /**

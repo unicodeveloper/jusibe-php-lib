@@ -136,7 +136,7 @@ class Jusibe {
     public function checkDeliveryStatus($messageID = null)
     {
         if (is_null($messageID)) {
-            throw IsEmpty::create("Message ID can not be empty.");
+            throw IsNull::create("Message ID can not be empty.");
         }
 
         $this->performGetRequest("/smsapi/delivery_status?message_id={$messageID}");
