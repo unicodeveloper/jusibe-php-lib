@@ -164,4 +164,28 @@ class JusibeTest extends PHPUnit_Framework_TestCase
                     ->setConstructorArgs([])
                     ->getMock();
     }
+
+    /**
+     * Assert that the appropriate response is returned when Invalid Keys are used in sending an SMS
+     */
+    public function testInvalidKeysArePassedWhenSendingSMS()
+    {
+        $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([$this->getInValidPublicKey(), $this->getInvalidAccessToken()])
+                    ->getMock();
+
+        // return a reference to the stubbed Jusibe object
+        $jusibe->method('sendSMS')
+            ->with($this->correctPayload())
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $jusibe->method('getResponse')
+            ->willReturn($this->invalidKeysResponse());
+
+        $result = $jusibe->sendSMS($this->correctPayload())->getResponse();
+
+        $this->assertObjectHasAttribute('error', $result);
+        $this->assertEquals("Invalid API Key!", $result->error);
+    }
 }

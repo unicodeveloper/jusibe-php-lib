@@ -109,6 +109,21 @@ trait Helper {
      }
 
      /**
+      * [correctPayload description]
+      * @return [type] [description]
+      */
+     public function correctPayload()
+     {
+        $message  = "I LOVE YOU, BABY";
+
+        return [
+            'to' => '8038142771',
+            'from' => 'TEST JUSIBE',
+            'message' => $message
+        ];
+     }
+
+     /**
       * Get Invalid Access Token
       * @return string
       */
