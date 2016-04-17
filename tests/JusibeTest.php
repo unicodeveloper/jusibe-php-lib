@@ -188,4 +188,24 @@ class JusibeTest extends PHPUnit_Framework_TestCase
         $this->assertObjectHasAttribute('error', $result);
         $this->assertEquals("Invalid API Key!", $result->error);
     }
+
+    /**
+     * Assert that the appropriate response is returned when Invalid Message ID is used for checkDeliveryStatus
+     */
+    public function testInvalidMessageIDWhenCheckingDeliveryStatus()
+    {
+        // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('checkDeliveryStatus')
+            ->with($this->getInValidMessageID())
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $this->jusibe->method('getResponse')
+            ->willReturn($this->invalidMessageIDResponse());
+
+        $result = $this->jusibe->checkDeliveryStatus($this->getInValidMessageID())->getResponse();
+
+        $this->assertObjectHasAttribute('invalid_message_id', $result);
+        $this->assertEquals("Invalid message ID", $result->invalid_message_id);
+    }
 }

@@ -83,6 +83,18 @@ trait Helper {
      }
 
      /**
+      * Stubbed Invalid Message ID Response
+      * @return object
+      */
+     public function invalidMessageIDResponse()
+     {
+        $response = new StdClass;
+        $response->invalid_message_id = "Invalid message ID";
+
+        return $response;
+     }
+
+     /**
       * Stubbed sendSMSResponse
       * @return object
       */
