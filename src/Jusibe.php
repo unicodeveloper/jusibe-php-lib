@@ -12,6 +12,7 @@
 namespace Unicodeveloper\Jusibe;
 
 use GuzzleHttp\Client;
+use Unicodeveloper\Jusibe\Exceptions\IsNull;
 use Unicodeveloper\Jusibe\Exceptions\IsEmpty;
 
 class Jusibe {
@@ -52,6 +53,14 @@ class Jusibe {
      */
     public function __construct($publicKey = null, $accessToken = null)
     {
+        if (is_null($publicKey)) {
+            throw IsNull::create("The Public Key can not be null. Please pass it to the constructor");
+        }
+
+        if (is_null($accessToken)) {
+            throw IsNull::create("The Access Token can not be null. Please pass it to the constructor");
+        }
+
         $this->publicKey = $publicKey;
         $this->accessToken = $accessToken;
         $this->prepareRequest();
