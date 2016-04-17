@@ -123,4 +123,24 @@ class JusibeTest extends PHPUnit_Framework_TestCase
         $this->assertObjectHasAttribute('date_delivered', $result);
         $this->assertEquals($this->getValidMessageID(), $result->message_id);
     }
+
+    /**
+     * @expectedException \Unicodeveloper\Jusibe\Exceptions\IsNull
+     */
+    public function testAccessTokenWasNotPassedToJusibeConstructor()
+    {
+         $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([$this->getValidPublicKey(), null])
+                    ->getMock();
+    }
+
+    /**
+     * @expectedException \Unicodeveloper\Jusibe\Exceptions\IsNull
+     */
+    public function testPublicKeyWasNotPassedToJusibeConstructor()
+    {
+         $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([null, $this->getValidAccessToken()])
+                    ->getMock();
+    }
 }
