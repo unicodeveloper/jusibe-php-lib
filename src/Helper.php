@@ -71,6 +71,18 @@ trait Helper {
      }
 
      /**
+      * Stubbed Invalid Keys Response
+      * @return object
+      */
+     public function invalidKeysResponse()
+     {
+        $response = new StdClass;
+        $response->error = "Invalid API Key!";
+
+        return $response;
+     }
+
+     /**
       * Stubbed sendSMSResponse
       * @return object
       */
