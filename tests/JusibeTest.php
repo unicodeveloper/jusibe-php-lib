@@ -125,6 +125,17 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+    * @setExpectedException \Unicodeveloper\Jusibe\Exceptions\IsEmpty
+    */
+    public function testCheckDeliveryStatusWithoutMessageID()
+    {
+        // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('checkDeliveryStatus')
+            ->with(null)
+            ->will($this->returnSelf());
+    }
+
+    /**
      * @expectedException \Unicodeveloper\Jusibe\Exceptions\IsNull
      */
     public function testAccessTokenWasNotPassedToJusibeConstructor()
