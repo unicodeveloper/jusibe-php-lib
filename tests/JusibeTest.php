@@ -109,13 +109,14 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     {
         // return a reference to the stubbed Jusibe object
         $this->jusibe->method('checkDeliveryStatus')
+            ->with($this->getValidMessageID())
             ->will($this->returnSelf());
 
         // now stub out the getResponse method
         $this->jusibe->method('getResponse')
             ->willReturn($this->checkDeliveryStatusResponse());
 
-        $result = $this->jusibe->checkDeliveryStatus()->getResponse();
+        $result = $this->jusibe->checkDeliveryStatus($this->getValidMessageID())->getResponse();
 
         $this->assertObjectHasAttribute('message_id', $result);
         $this->assertObjectHasAttribute('status', $result);
@@ -152,6 +153,16 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     {
          $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
                     ->setConstructorArgs([null, $this->getValidAccessToken()])
+                    ->getMock();
+    }
+
+    /**
+     * @expectedException \Unicodeveloper\Jusibe\Exceptions\IsNull
+     */
+    public function testNothingWasNotPassedToJusibeConstructor()
+    {
+         $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([])
                     ->getMock();
     }
 }
