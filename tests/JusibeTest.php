@@ -12,6 +12,7 @@
 namespace Unicodeveloper\Jusibe\Test;
 
 use StdClass;
+use ReflectionClass;
 use PHPUnit_Framework_TestCase;
 use Unicodeveloper\Jusibe\Helper;
 use Unicodeveloper\Jusibe\Jusibe;
@@ -254,5 +255,38 @@ class JusibeTest extends PHPUnit_Framework_TestCase
 
         $this->assertObjectHasAttribute('invalid_message_id', $result);
         $this->assertEquals("Invalid message ID", $result->invalid_message_id);
+    }
+
+    /**
+     * Invoke testPrepareRequest
+     */
+    public function testPrepareRequest()
+    {
+        $this->invokeMethod($this->jusibe, 'prepareRequest', []);
+    }
+
+    /**
+     * Invoke testPerformGetRequest
+     */
+    public function testPerformGetRequest()
+    {
+        $this->invokeMethod($this->jusibe, 'performGetRequest', ['/smsapi/get_credits']);
+    }
+
+    /**
+    * Call protected/private method of a class.
+    *
+    * @param object &$object    Instantiated object that we will run method on.
+    * @param string $methodName Method name to call
+    * @param array  $parameters Array of parameters to pass into method.
+    *
+    * @return mixed Method return.
+    */
+    private function invokeMethod(&$object, $methodName, array $parameters = array())
+    {
+        $reflection = new ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+        return $method->invokeArgs($object, $parameters);
     }
 }
