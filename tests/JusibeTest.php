@@ -42,6 +42,14 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Assert that the base url doesn't correspond
+     */
+    public function testBaseUrlIsNotCorrect()
+    {
+        $this->assertNotEquals(Jusibe::baseURL, 'https://jusibe.co');
+    }
+
+    /**
     * Assert that available credits can be returned successfully
     */
     public function testAvailableCreditsCanBeReturned()
