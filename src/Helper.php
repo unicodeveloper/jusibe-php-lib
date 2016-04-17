@@ -121,8 +121,8 @@ trait Helper {
      }
 
      /**
-      * [correctPayload description]
-      * @return [type] [description]
+      * Stubbed correct Payload
+      * @return array
       */
      public function correctPayload()
      {

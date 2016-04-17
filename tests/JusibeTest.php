@@ -86,14 +86,14 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     {
        // return a reference to the stubbed Jusibe object
         $this->jusibe->method('sendSMS')
-            ->with([])
+            ->with($this->correctPayload())
             ->will($this->returnSelf());
 
         // now stub out the getResponse method
         $this->jusibe->method('getResponse')
             ->willReturn($this->sendSMSResponse());
 
-        $result = $this->jusibe->sendSMS()->getResponse();
+        $result = $this->jusibe->sendSMS($this->correctPayload())->getResponse();
 
         $this->assertObjectHasAttribute('sms_credits_used', $result);
         $this->assertObjectHasAttribute('status', $result);
@@ -184,6 +184,53 @@ class JusibeTest extends PHPUnit_Framework_TestCase
             ->willReturn($this->invalidKeysResponse());
 
         $result = $jusibe->sendSMS($this->correctPayload())->getResponse();
+
+        $this->assertObjectHasAttribute('error', $result);
+        $this->assertEquals("Invalid API Key!", $result->error);
+    }
+
+    /**
+    * Assert that the appropriate response is returned when Invalid Keys are used when checking Delivery Status
+    */
+    public function testInvalidKeysArePassedWhenCheckingDeliveryStatus()
+    {
+        $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([$this->getInValidPublicKey(), $this->getInvalidAccessToken()])
+                    ->getMock();
+
+        // return a reference to the stubbed Jusibe object
+        $jusibe->method('checkDeliveryStatus')
+            ->with($this->getValidMessageID())
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $jusibe->method('getResponse')
+            ->willReturn($this->invalidKeysResponse());
+
+        $result = $jusibe->checkDeliveryStatus($this->getValidMessageID())->getResponse();
+
+        $this->assertObjectHasAttribute('error', $result);
+        $this->assertEquals("Invalid API Key!", $result->error);
+    }
+
+    /**
+    * Assert that the appropriate response is returned when Invalid Keys are used when checking Available Credits
+    */
+    public function testInvalidKeysArePassedWhenCheckingAvailableCredits()
+    {
+        $jusibe = $this->getMockBuilder('\Unicodeveloper\Jusibe\Jusibe')
+                    ->setConstructorArgs([$this->getInValidPublicKey(), $this->getInvalidAccessToken()])
+                    ->getMock();
+
+        // return a reference to the stubbed Jusibe object
+        $jusibe->method('checkAvailableCredits')
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $jusibe->method('getResponse')
+            ->willReturn($this->invalidKeysResponse());
+
+        $result = $jusibe->checkAvailableCredits()->getResponse();
 
         $this->assertObjectHasAttribute('error', $result);
         $this->assertEquals("Invalid API Key!", $result->error);
