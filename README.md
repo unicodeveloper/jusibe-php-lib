@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/unicodeveloper/jusibe-php-lib/v/stable.svg)](https://packagist.org/packages/unicodeveloper/jusibe-php-lib)
 [![License](https://poser.pugx.org/unicodeveloper/jusibe-php-lib/license.svg)](LICENSE.md)
+![](https://img.shields.io/badge/unicodeveloper-approved-brightgreen.svg)
 [![Build Status](https://img.shields.io/travis/unicodeveloper/jusibe-php-lib.svg)](https://travis-ci.org/unicodeveloper/jusibe-php-lib)
 [![Coveralls](https://img.shields.io/coveralls/unicodeveloper/jusibe-php-lib/master.svg)](https://coveralls.io/github/unicodeveloper/jusibe-php-lib?branch=master)
 [![Quality Score](https://img.shields.io/scrutinizer/g/unicodeveloper/jusibe-php-lib.svg?style=flat-square)](https://scrutinizer-ci.com/g/unicodeveloper/jusibe-php-lib)
