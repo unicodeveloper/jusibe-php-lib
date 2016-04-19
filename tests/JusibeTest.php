@@ -24,6 +24,10 @@ class JusibeTest extends PHPUnit_Framework_TestCase
 {
     use Helper;
 
+    /**
+     * Instance of Mock Jusibe Instance
+     * @var object
+     */
     protected $jusibe;
 
     /**
