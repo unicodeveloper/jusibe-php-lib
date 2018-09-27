@@ -38,6 +38,15 @@ trait Helper {
      }
 
      /**
+      * Get Valid Bulk Message ID
+      * @return string
+      */
+      public function getValidBulkMessageID()
+      {
+         return getenv('BULK_MESSAGE_ID');
+      }
+
+     /**
       * Get Invalid Message ID
       * @return string
       */
@@ -69,6 +78,25 @@ trait Helper {
 
         return $response;
      }
+
+     /**
+      * Stubbed checkBulkDeliveryStatusResponse
+      * @return object
+      */
+      public function checkBulkDeliveryStatusResponse()
+      {
+         $response = new StdClass;
+         $response->bulk_message_id = $this->getValidBulkMessageID();
+         $response->status = 'Completed';
+         $response->created = time();
+         $response->processed = time();
+         $response->total_numbers = 2;
+         $response->total_unique_numbers = 2;
+         $response->total_valid_numbers = 2;
+         $response->total_invalid_numbers = 0;
+ 
+         return $response;
+      }
 
      /**
       * Stubbed Invalid Keys Response
@@ -107,6 +135,20 @@ trait Helper {
 
         return $response;
      }
+
+     /**
+      * Stubbed sendBulkSMSResponse
+      * @return object
+      */
+      public function sendBulkSMSResponse()
+      {
+         $response = new StdClass;
+         $response->status = 'Submitted';
+         $response->bulk_message_id = $this->getValidBulkMessageID();
+         $response->request_speed = 0.05;
+ 
+         return $response;
+      }
 
      /**
       * Stubbed checkAvailableCreditsResponse
