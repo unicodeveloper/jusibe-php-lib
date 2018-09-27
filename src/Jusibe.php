@@ -118,6 +118,26 @@ class Jusibe {
     }
 
     /**
+     * Send Bulk SMS using the Jusibe API
+     * @param  array $payload
+     * @return $this
+     */
+    public function sendBulkSMS($payload = [])
+    {
+        if (empty($payload)) {
+            throw IsEmpty::create("Message Payload can not be empty. Please fill the appropriate details");
+        }
+
+        if(empty($payload['to'])){
+            throw IsEmpty::create("Message destination can not be empty.");
+        }
+
+        $this->performPostRequest('/smsapi/bulk/send_sms', $payload);
+
+        return $this;
+    }
+
+    /**
      * Check the available SMS credits left in your JUSIBE account
      * @return $this
      */
@@ -140,6 +160,22 @@ class Jusibe {
         }
 
         $this->performGetRequest("/smsapi/delivery_status?message_id={$messageID}");
+
+        return $this;
+    }
+
+    /**
+     * Check the delivery status of a sent bulk SMS
+     * @param  string $bulkID
+     * @return $this
+     */
+    public function checkBulkDeliveryStatus($bulkID = null)
+    {
+        if (is_null($bulkID)) {
+            throw IsNull::create("Bulk ID can not be empty.");
+        }
+
+        $this->performGetRequest("/smsapi/bulk/status?bulk_message_id={$bulkID}");
 
         return $this;
     }
