@@ -107,6 +107,39 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @throws IsEmpty
+     * test that SendSMSWithoutPayload throws an exception
+     */
+    public function testSendBulkSMSWithoutPayload()
+    {
+        // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('sendBulkSMS')
+            ->will($this->throwException(new IsEmpty));
+    }
+
+    /**
+    * Assert that bulk sms can be sent successfully
+    */
+    public function testSendBulkSMSWithPayload()
+    {
+       // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('sendBulkSMS')
+            ->with($this->correctPayload())
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $this->jusibe->method('getResponse')
+            ->willReturn($this->sendBulkSMSResponse());
+
+        $result = $this->jusibe->sendBulkSMS($this->correctPayload())->getResponse();
+
+        $this->assertObjectHasAttribute('request_speed', $result);
+        $this->assertObjectHasAttribute('status', $result);
+        $this->assertObjectHasAttribute('bulk_message_id', $result);
+        $this->assertEquals($this->getValidBulkMessageID(), $result->bulk_message_id);
+    }
+
+    /**
      * Assert that delivery status can be returned successfully
      */
     public function testDeliveryStatusCanBeReturned()
@@ -130,6 +163,33 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Assert that bulk delivery status can be returned successfully
+     */
+    public function testBulkDeliveryStatusCanBeReturned()
+    {
+        // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('checkBulkDeliveryStatus')
+            ->with($this->getValidBulkMessageID())
+            ->will($this->returnSelf());
+
+        // now stub out the getResponse method
+        $this->jusibe->method('getResponse')
+            ->willReturn($this->checkBulkDeliveryStatusResponse());
+
+        $result = $this->jusibe->checkBulkDeliveryStatus($this->getValidBulkMessageID())->getResponse();
+
+        $this->assertObjectHasAttribute('bulk_message_id', $result);
+        $this->assertObjectHasAttribute('status', $result);
+        $this->assertObjectHasAttribute('created', $result);
+        $this->assertObjectHasAttribute('processed', $result);
+        $this->assertObjectHasAttribute('total_numbers', $result);
+        $this->assertObjectHasAttribute('total_unique_numbers', $result);
+        $this->assertObjectHasAttribute('total_valid_numbers', $result);
+        $this->assertObjectHasAttribute('total_invalid_numbers', $result);
+        $this->assertEquals($this->getValidBulkMessageID(), $result->bulk_message_id);
+    }
+
+    /**
      * @throws IsNull
      * test that CheckDeliveryStatusWithoutMessageID throws an exception
      */
@@ -137,6 +197,17 @@ class JusibeTest extends PHPUnit_Framework_TestCase
     {
         // return a reference to the stubbed Jusibe object
         $this->jusibe->method('checkDeliveryStatus')
+            ->will($this->throwException(new IsNull));
+    }
+
+    /**
+     * @throws IsNull
+     * test that CheckBulkDeliveryStatusWithoutMessageID throws an exception
+     */
+    public function testCheckBulkDeliveryStatusWithoutMessageID()
+    {
+        // return a reference to the stubbed Jusibe object
+        $this->jusibe->method('checkBulkDeliveryStatus')
             ->will($this->throwException(new IsNull));
     }
 

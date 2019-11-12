@@ -36,6 +36,13 @@ Available methods for use are:
 $jusibe->sendSMS($payload)->getResponse();
 
 /**
+ * Send Bulk SMS using the Jusibe API
+ * @param  array $payload
+ * @return object
+ */
+$jusibe->sendBulkSMS($payload)->getResponse();
+
+/**
  * Check the available SMS credits left in your Jusibe account
  * @return object
  */
@@ -47,6 +54,13 @@ $jusibe->checkAvailableCredits()->getResponse();
  * @return object
  */
 $jusibe->checkDeliveryStatus('8nb1wrgdjw')->getResponse();
+
+/**
+ * Check the delivery status of a sent Bulk SMS
+ * @param  string $bulkID
+ * @return object
+ */
+$jusibe->checkBulkDeliveryStatus('8nb1wrgdjw')->getResponse();
 ```
 
 ### Send an SMS
@@ -85,6 +99,43 @@ try {
 **Response Info for Developer**
 
 ![SendSMS Response](https://cloud.githubusercontent.com/assets/2946769/14465033/451179c4-00c9-11e6-881e-bcc92665fa7c.png)
+
+### Send a Bulk SMS
+
+```php
+
+<?php
+
+// include your composer dependencies
+require_once 'vendor/autoload.php';
+
+use Unicodeveloper\Jusibe\Jusibe;
+
+$publicKey = 'xxxxxxxxxxxxxx';
+$accessToken = 'xxxxxxxxxxxxxx';
+
+$jusibe = new Jusibe($publicKey, $accessToken);
+
+$message = "You are invited for party!!!";
+
+$payload = [
+    'to' => '7079740987,8077139164',
+    'from' => 'DOZIE GROUP',
+    'message' => $message
+];
+
+try {
+    $response = $jusibe->sendBulkSMS($payload)->getResponse();
+    print_r($response);
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+```
+
+**Response Info for Developer**
+
+![Send BulkSMS Response](https://user-images.githubusercontent.com/19904579/46137560-cf37bf00-c241-11e8-9dc6-7096bb0278f4.png)
 
 ### Check SMS Credits
 
@@ -143,6 +194,37 @@ try {
 **Response Info for Developer**
 
 ![Check Delivery Status Response](https://cloud.githubusercontent.com/assets/2946769/14465686/bb61e3d2-00cb-11e6-9164-ec73665408f3.png)
+
+
+
+### Check Bulk Delivery Status
+
+```php
+
+<?php
+
+// include your composer dependencies
+require_once 'vendor/autoload.php';
+
+use Unicodeveloper\Jusibe\Jusibe;
+
+$publicKey = 'xxxxxxxxxxxxxx';
+$accessToken = 'xxxxxxxxxxxxxx';
+
+$jusibe = new Jusibe($publicKey, $accessToken);
+
+try {
+    $response = $jusibe->checkBulkDeliveryStatus('n2v9gby1jy')->getResponse();
+    print_r($response);
+} catch(Exception $e) {
+    echo $e->getMessage();
+}
+
+```
+
+**Response Info for Developer**
+
+![Check Bulk Delivery Status Response](https://user-images.githubusercontent.com/19904579/46137669-0a39f280-c242-11e8-9143-8b3ec68ed84f.png)
 
 ## Contributing
 
